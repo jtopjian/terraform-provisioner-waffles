@@ -1,0 +1,24 @@
+sudo: false
+language: go
+go:
+  - 1.5
+env:
+  - GIMME_OS=linux GIMME_ARCH=amd64
+  - GIMME_OS=darwin GIMME_ARCH=amd64
+  - GIMME_OS=windows GIMME_ARCH=amd64
+install:
+  - go get -d -v ./...
+script:
+  - go build -v -o terraform-provisioner-waffles
+  - tar czvf terraform-provisioner-waffles_${TRAVIS_TAG}_${GIMME_OS}_${GIMME_ARCH}.tar.gz terraform-provisioner-waffles
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: wEHPBJR7fgmTPbWLVzFWci1UfuEpSEjHXcOhVws87P9X1IbTxnfR/3ufLfbg+7FGKkdXFZzZ6jQHAF9tTA403T1DFXCGhNqTD9kfXec8WQgUawwB7S2/uwwI5sNz+W9sNJftiLiJI3UvHZB5UTRN0pm5uUdTexDDr5Lq7atj0NCPYQH3NyQDf7lSCKz//rzR1C1Q/lFdkWa9n4lDOSw37uhl5M/Ifgm3VymJoDgitX/Jhcpt+RG6uTUZ/x8RrFaMdYX58xJZ9b0gyd0bkqtjmxL15xBUpoJ+CR1PP2jCwLIy9pDxrLl0O85uP5J5mkU7+yz+ohpMGxMG6k9aW5m56wMl0UnwbmXjkyGOGuO/AlVasZZ6GDPf1q7icsS6035j8JfDxwk2t/M2pnJ/wTYPFP+t12SLRlylttznkLKHGE3xaR0OoYw1tsODr2rZKrPX2kfHmmuCc56dEvc1r00Hrm7ndF7G5QEgtlED8IluSXiNPu/TxkBdFz0lnwI+PlVgL1j/K+0rPDxKsnDbWi2uwUgD0jmJoH7SQf/vIIGK7AEvjI/QAxlX6c5TFxkFV3uuzDrAf1MtX6APvdD/Elj938k7UBJzWdL+V2eCETDhJzIJAZ9S2omWPD996UZr3w7kCj6n7tC32y+KmrOk1LTtrLvW6drQCxT3A8k/M6/Wlz0=
+  file: terraform-provisioner-waffles_*
+  file_glob: true
+  on:
+    repo: jtopjian/terraform-provisioner-waffles
+    all_branches: true
+    tags: true
