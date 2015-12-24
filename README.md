@@ -26,13 +26,15 @@ provisioner "waffles" {
 * `waffles_exec`: The path to `waffles.sh`. Optional. Defaults to `/etc/waffles/waffles.sh`.
 * `wait`: The amount of time in seconds to wait between SSH attempts. Optional Defaults to 5 seconds.
 
+## Installation
+
+1. Grab the latest release from the [releases](https://github.com/jtopjian/terraform-provisioner-waffles/releases) page.
+2. Copy the binary to the same location as the other Terraform executables.
+
 ## Building
 
 ```shell
-$ go get github.com/hashicorp/terraform
 $ go get github.com/jtopjian/terraform-provisioner-waffles
-$ cd $GOPATH/src/github.com/hashicorp/terraform
-$ make updatedeps
 $ cd $GOPATH/src/github.com/jtopjian/terraform-provisioner-waffles
-$ go build -o ~/path/to/terraform/terraform-provisioner-waffles .
+$ go build -v -o ~/path/to/terraform/terraform-provisioner-waffles .
 ```
